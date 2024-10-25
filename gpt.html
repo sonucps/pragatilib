@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #e9ecef;
+        }
+        header {
+            background: #007bff;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        div {
+            border-radius: 8px;
+            background-color: #f2f2f2;
+            padding: 30px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        input[type=text], input[type=tel], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        input[type=text]:focus, input[type=tel]:focus, select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        input[type=submit] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+        @media screen and (max-width: 600px) {
+    div {
+        width: 100%;
+    }
+ }
+ 
+    </style>
+</head>
+<body>
+<header><h1>Welcome to Pragati Library</h1></header>
+<h3>Student Registration</h3><div>
+    
+
+
+ 
+
+<div>
+    <form method="post" name="google-sheet" id="regform">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name.." required>
+
+        <label for="fatherName">Father's Name</label>
+        <input type="text" id="fatherName" name="fatherName" placeholder="Father's Name.." required>
+
+        <label for="village">Village</label>
+        <input type="text" id="village" name="village" placeholder="Your village.." required>
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="Your phone number.." pattern="[0-9]{10}"required>
+
+        <label for="Slot">Slot</label>
+        <select id="Slot" name="Slot" required>
+            <option value="">Select Slot</option>
+            <option value="Slot 1(7:00 AM to 10:00AM)">Slot 1(7:00 AM to 10:00AM)</option>
+            <option value="Slot 2(10:00 AM to 1:00PM)">Slot 2(10:00 AM to 1:00PM)</option>
+            <option value="Slot 3(1:00 PM to 4:00PM)">Slot 3(1:00 PM to 4:00PM)</option>
+        </select>
+
+        <label for="duration">Duration</label>
+        <select id="duration" name="duration" required>
+            <option value="">Select Duration</option>
+            <option value="1 month">1 Month(Fees-₹400)</option>
+            <option value="2 months">2 Months(Fees-₹700)</option>
+            <option value="3 months">3 Months(Fees-₹1000)</option>
+            
+        </select>
+
+        <input type="submit" value="Submit" name="submit"aria-label="Submit Registration Form">
+        <input type="reset" value="Reset" style="background-color: #dc3545;">
+    </form>
+
+</div>
+<!-- <img src="sonu.jpg" alt=""> -->
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwtmUr7eAfxmjxy8SagPDnK5FfS2JsNIWZTEBbaCEYpQxtdvpWJ4cgHtZwUNh7SZ5asXg/exec';
+    const form = document.forms['google-sheet'];
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => alert("Thanks for contacting us! We will get back to you soon."))
+            .catch(error => console.error('Error!', error.message));
+    });
+</script>
+<!-- Modal -->
+<div id="confirmationModal" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+    <h2>Registration Successful</h2>
+    <p>Thank you for registering! We'll contact you soon.</p>
+    <button onclick="closeModal()">Close</button>
+  </div>
+  
+  <script>
+     var regform = document.getElementById('regform');
+      form.addEventListener('submit', e => {
+          e.preventDefault();
+          fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+              .then(response => {
+                //extra
+                regform.style.display="none"
+                  document.getElementById('confirmationModal').style.display = 'block';
+
+              })
+              .catch(error => console.error('Error!', error.message));
+      });
+  
+      function closeModal() {
+          document.getElementById('confirmationModal').style.display = 'none';
+          form.reset(); // Reset form after submission
+      }
+  </script>
+  
+
+</body>
+</html>

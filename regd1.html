@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #007bff;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        h1, h2 {
+            margin: 20px 0;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .confirmation {
+            display: none;
+            background: #e7f3fe;
+            border-left: 6px solid #2196F3;
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Our School</h1>
+    </header>
+
+    <section>
+        <h2>Student Registration Form</h2>
+        <form id="regForm">
+            <label for="name">Student Full Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <!-- <label for="fatherName">Father's Name:</label>
+            <input type="text" id="fatherName" name="fatherName" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="grade">Grade:</label>
+            <select id="grade" name="grade" required>
+                <option value="">Select Grade</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+
+            <label for="classSlot">Preferred Class Slot:</label>
+            <select id="classSlot" name="classSlot" required>
+                <option value="">Select Class Slot</option>
+                <option value="morning">Morning</option>
+                <option value="afternoon">Afternoon</option>
+                <option value="evening">Evening</option>
+            </select> -->
+
+            <button type="submit">Register</button>
+        </form>
+
+        <div class="confirmation" id="confirmation">
+            <h2>Thank You for Registering!</h2>
+            <p>Your registration has been submitted successfully.</p>
+        </div>
+    </section>
+
+    
+
+    <script type="module">
+      
+      </script>
+      <script>
+        document.getElementById('regForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+      
+            const name = document.getElementById('name').value;
+      
+            fetch('https://script.google.com/macros/s/AKfycbwKjdoIlQz1EJFOcRXHJ31Wh9VZ7UcsykFuB8So7QELvHATCwhhcQoIQ0i9sb-Qt-vx/exec', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name }),
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Show confirmation message
+                document.getElementById('confirmation').style.display = 'block';
+                console.log(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+      </script>
+      
+</body>
+</html>

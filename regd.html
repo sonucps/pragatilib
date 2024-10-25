@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #007bff;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        h1, h2 {
+            margin: 20px 0;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background: #218838;
+        }
+        .confirmation {
+            display: none;
+            background: #e7f3fe;
+            border-left: 6px solid #2196F3;
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Our School</h1>
+    </header>
+
+    <section>
+        <h2>Student Registration Form</h2>
+        <form id="regForm">
+            <label for="name">Student Full Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="fatherName">Father's Name:</label>
+            <input type="text" id="fatherName" name="fatherName" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="grade">Grade:</label>
+            <select id="grade" name="grade" required>
+                <option value="">Select Grade</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+
+            <label for="classSlot">Preferred Class Slot:</label>
+            <select id="classSlot" name="classSlot" required>
+                <option value="">Select Class Slot</option>
+                <option value="morning">Morning</option>
+                <option value="afternoon">Afternoon</option>
+                <option value="evening">Evening</option>
+            </select>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <div class="confirmation" id="confirmation">
+            <h2>Thank You for Registering!</h2>
+            <p>Your registration has been submitted successfully.</p>
+        </div>
+    </section>
+
+    <script type="module">
+          // Import the functions you need from the SDKs you need
+          import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-analytics.js";
+        import {getFirestore,collection, addDoc} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyBbgF4wri36kKQHHeQwzzoZUJrcdwSGp2U",
+          authDomain: "library-fcdcd.firebaseapp.com",
+          projectId: "library-fcdcd",
+          storageBucket: "library-fcdcd.appspot.com",
+          messagingSenderId: "952168438018",
+          appId: "1:952168438018:web:f7eee319288d096cc80a1b",
+          measurementId: "G-XQ3SYY3194"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore(app);
+        document.getElementById('regForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Gather form data
+            swal.fire({title:"hi"})
+            const formData = new FormData(this);
+            const data = {
+                name: formData.get('name'),
+                fatherName: formData.get('fatherName'),
+                phone: formData.get('phone'),
+                grade: formData.get('grade'),
+                classSlot: formData.get('classSlot')
+            };
+            try {
+  const docRef =  addDoc(collection(db, "users"), data);
+  console.log("Document written with ID: ", docRef.id);
+} catch (e) {
+  console.error("Error adding document: ", e);
+}
+            // Send data to Google Apps Script
+            // fetch('https://script.google.com/macros/s/AKfycbw8s_5hR2jKLJFl3EMtnPbK4yGpcagJePNEkXJRu2XmIYeCdjRpECMBNKRQEVW_dlmf/exec', {
+            //     method: 'POST',
+            //     body: new URLSearchParams(data)
+            // })
+            // .then(response => {
+            //     if (!response.ok) {
+            //         throw new Error('Network response was not ok');
+            //     }
+            //     return response.text();
+            // })
+            // .then(() => {
+            //     // Hide the registration form
+            //     document.getElementById('regForm').style.display = 'none';
+            //     // Show confirmation message
+            //     document.getElementById('confirmation').style.display = 'block';
+            // })
+            // .catch(error => {
+            //     console.error('Error:', error);
+            //     alert('There was an error submitting your registration. Please try again.');
+            // });
+        });
+    </script>
+    <script type="module">
+      
+      </script>
+</body>
+</html>
