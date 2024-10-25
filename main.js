@@ -5,6 +5,9 @@ const scriptURL = 'https://script.google.com/macros/s/AKfycbyF_5j9eu_4Uw6S5P3RGJ
     const uploadSection = document.getElementById('uploadSection');
     const thankyouMessage = document.getElementById('thankyouMessage');
     const regform = document.getElementById('regform');
+    const botToken = '6126270354:AAEWnz1lo1D9OkZook_7I-gr090eVe6F07k'; // Replace with your bot token
+    const chatId = '1506636821'; // Replace with your chat ID
+    const url = `https://api.telegram.org/bot${botToken}/sendPhoto`;
 
     form.addEventListener('submit', e => {
         e.preventDefault();
@@ -20,11 +23,18 @@ const scriptURL = 'https://script.google.com/macros/s/AKfycbyF_5j9eu_4Uw6S5P3RGJ
     // Handle the screenshot upload
     uploadForm.addEventListener('submit', e => {
         e.preventDefault();
-        const uploadData = new FormData(uploadForm);
+        //const uploadData = new FormData(uploadForm);
+        const formData = new FormData();
+        const fileInput = document.getElementById('paymentScreenshot').files[0];
+        formData.append('chat_id', chatId);
+        formData.append('photo', fileInput); 
 
        
-        fetch(scriptURL, { method: 'POST', body: uploadData })
-            .then(response => {
+       // fetch(scriptURL, { method: 'POST', body: uploadData })
+       fetch(url, {
+        method: 'POST',
+        body: formData
+    }).then(response => {
                 paymentSection.style.display = "none"; // Hide payment section
                 uploadSection.style.display = "none"; // Hide upload section
                 thankyouMessage.style.display = "block"; // Show thank you message
